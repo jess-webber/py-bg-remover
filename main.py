@@ -36,7 +36,7 @@ async def remove_background(file: UploadFile) -> FileResponse:
         return FileResponse(output_path)
     except Exception as e:
         logger.warning("Request to /remove-background failed. Error: %s", str(e))
-        return {"status": f"bad request: {e}"}
+        return {"error": f"{e}"}
 
 
 @app.get("/healthcheck")
