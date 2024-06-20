@@ -1,9 +1,12 @@
 import io
+import logging
 from fastapi import FastAPI, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from rembg import remove
 from PIL import Image
+
+logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
@@ -32,8 +35,8 @@ async def remove_background(file: UploadFile) -> FileResponse:
         output.save(output_path)
         return FileResponse(output_path)
     except Exception as e:
-        print("error: ", e)
-        return {"status": f"bad request: {e}"}
+        logger.warning("Request to /remove-background failed. Error: %s", str(e))
+        return {"error": f"{e}"}
 
 
 @app.get("/healthcheck")
