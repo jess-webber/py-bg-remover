@@ -3,3 +3,4 @@ uvicorn[standard]=0.21.1
 numpy
 rembg
 pillow
+numpy<2
